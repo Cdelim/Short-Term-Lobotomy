@@ -29,12 +29,21 @@ public class EnemyAttributes
 
 public enum EnemyState
 {
-    Idle =0,
+    Idle = 0,
     Moving2Char = 1,
     Attacking = 2,
     Death = 3,
 }
-public abstract class EnemyBase : MonoBehaviour
+
+
+public interface IPoolObject
+{
+    void Initialize();
+    void DestroyPoolObj();
+}
+
+
+public abstract class EnemyBase : MonoBehaviour, IPoolObject
 {
 
     public EnemyAttributes enemyAttributes;
@@ -52,11 +61,7 @@ public abstract class EnemyBase : MonoBehaviour
         stopDistance = Random.Range(0, enemyAttributes.range);
         navMeshAgent.updateRotation = false;
         navMeshAgent.updateUpAxis = false;
-        navMeshAgent.speed = enemyAttributes.speedMax;
-        navMeshAgent.acceleration = enemyAttributes.acceleration;
-        navMeshAgent.stoppingDistance = stopDistance;
-        navMeshAgent.enabled = true;
-        animationController.PlayIdle();
+        
     }
 
 
@@ -122,7 +127,11 @@ public abstract class EnemyBase : MonoBehaviour
     }
     protected abstract void Attack();
     protected abstract void MoveCharacter();
-    protected abstract void Die();
+    protected virtual void Die()
+    {
+        DestroyPoolObj();
+        Utility.WaveManager.Instance.EnemyDefeated(this.gameObject);
+    }
     protected abstract void GetDamage(ElementalType type);
 
     protected bool IsDeath()
@@ -157,5 +166,19 @@ public abstract class EnemyBase : MonoBehaviour
     protected EnemyState GetEnemyState()
     {
         return enemyState;
+    }
+
+    public virtual void Initialize()
+    {
+        navMeshAgent.speed = enemyAttributes.speedMax;
+        navMeshAgent.acceleration = enemyAttributes.acceleration;
+        navMeshAgent.stoppingDistance = stopDistance;
+        navMeshAgent.enabled = true;
+        animationController.PlayIdle();
+    }
+
+    public virtual void DestroyPoolObj()
+    {
+        navMeshAgent.enabled = false;
     }
 }

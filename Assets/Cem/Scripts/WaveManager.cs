@@ -2,110 +2,179 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Cem.Scripts {
+namespace Utility {
+
+    public class Wave
+    {
+        public int EnemyCount;
+        public int totalEnemyCount;
+        public List<GameObject> enemyPrefabs;
+
+
+        public GameObject GetRandomPrefab()
+        {
+            return enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
+        }
+    }
+    public class WaveManager : MonoBehaviour
+    {
+        public static WaveManager Instance; // Singleton instance
+
+
+            [Header("Wave Settings")]
+        public List<Wave> waves;
+        public int currentWaveIndex = 0; // The current wave number
+        //public int totalWaves = 5; // Total waves to progress through
+        public int enemiesAlive = 0; // Tracks active enemies
+
+        [Header("Spawn Settings")]
+        public Transform[] spawnPoints; // Empty GameObjects placed outside the camera's view
+
+        private Wave currentWave;
+
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
+            currentWave = waves[currentWaveIndex];
+        }
+
+        private void Start()
+        {
+       
+            StartNextWave();  // Begin the first wave
+        }
+
+
+        public void StartNextWave()
+        {
+            if (currentWaveIndex >= waves.Count - 1)
+            {
+
+                //todo Game End
+                Debug.Log("All waves completed!");
+                return;
+            }
+
+            currentWaveIndex++;
+            currentWave = waves[currentWaveIndex];
+            StartCoroutine(SpawnEnemies());
+        }
+
+        private IEnumerator SpawnEnemies()
+        {
+            for (int i = 0; i < currentWave.totalEnemyCount; i++)
+            {
+                Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+                GameObject enemy = ObjectPool.Instance.GetFromPool(currentWave.GetRandomPrefab());
+                enemy.transform.position = spawnPoint.position;
+                enemy.transform.rotation = Quaternion.identity;
+                enemy.SetActive(true); // Activate the enemy
+                enemiesAlive++;
+
+                yield return new WaitForSeconds(0.5f); // Delay between spawns
+            }
+        }
+
+        public void EnemyDefeated(GameObject enemy)
+        {
+            enemiesAlive--;
+
+            ObjectPool.Instance.ReturnToPool(enemy); // Deactivate and return to pool
+
+            if (enemiesAlive <= 0)
+            {
+                Debug.Log("Wave completed!");
+                StartNextWave();
+            }
+        }
+
     
-public class WaveManager : MonoBehaviour
-{
-    public static WaveManager Instance; // Singleton instance
-
-    [Header("Wave Settings")]
-    public int currentWave = 0; // The current wave number
-    public int totalWaves = 5; // Total waves to progress through
-    public int enemiesAlive = 0; // Tracks active enemies
-
-    [Header("Object Pool Settings")]
-    public GameObject enemyPrefab; // Prefab for the enemies
-    public int poolSize = 30; // Number of enemies to preload
-    private Queue<GameObject> enemyPool = new();
-
-    [Header("Spawn Settings")]
-    public Transform[] spawnPoints; // Empty GameObjects placed outside the camera's view
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
 
-    private void Start()
+
+
+
+    public class ObjectPool : MonoBehaviour
     {
-        InitializePool(); // Preload enemies
-        StartNextWave();  // Begin the first wave
-    }
+            public List<GameObject> prefabList;
+            public static ObjectPool Instance;
+            private readonly Dictionary<GameObject,Queue<GameObject>> pool = new Dictionary<GameObject,Queue<GameObject>>();
+            private readonly GameObject prefab;
+            private readonly Transform parent;
+            private readonly int initialSize = 30;
 
-    private void InitializePool()
-    {
-        for (int i = 0; i < poolSize; i++)
-        {
-            GameObject obj = Instantiate(enemyPrefab);
-            obj.SetActive(false); // Start inactive
-            enemyPool.Enqueue(obj); // Add to the pool
-        }
-    }
 
-    public void StartNextWave()
-    {
-        if (currentWave >= totalWaves)
-        {
-            Debug.Log("All waves completed!");
-            return;
-        }
+            private void Awake()
+            {
+                if (Instance == null)
+                {
+                    Instance = this;
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }
+                DontDestroyOnLoad(this);
+                foreach(var obj in prefabList)
+                {
+                    for (int i = 0; i < initialSize; i++)
+                    {
+                        CreateNewObject(obj);
 
-        currentWave++;
-        int enemyCount = currentWave * 5; // Example: 5 enemies per wave
-        StartCoroutine(SpawnEnemies(enemyCount));
-    }
+                    }
+                }
+            }
 
-    private IEnumerator SpawnEnemies(int count)
-    {
-        for (int i = 0; i < count; i++)
-        {
-            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-            GameObject enemy = GetFromPool();
-            enemy.transform.position = spawnPoint.position;
-            enemy.transform.rotation = Quaternion.identity;
-            enemy.SetActive(true); // Activate the enemy
-            enemiesAlive++;
+       
 
-            yield return new WaitForSeconds(0.5f); // Delay between spawns
-        }
-    }
+            // Get an object from the pool
+            public GameObject GetFromPool(GameObject prefab)
+            {
+                if (pool[prefab].Count == 0)
+                {
+                    // No available objects, create a new one
+                    CreateNewObject(prefab);
+                }
 
-    public void EnemyDefeated(GameObject enemy)
-    {
-        enemiesAlive--;
+                GameObject obj = pool[prefab].Dequeue();
+                IPoolObject poolObject;
+                if (obj.TryGetComponent<IPoolObject>(out poolObject))
+                {
+                    poolObject.Initialize();
+                }
+                obj.gameObject.SetActive(true);
+                return obj;
+            }
 
-        ReturnToPool(enemy); // Deactivate and return to pool
+            // Return an object to the pool
+            public void ReturnToPool(GameObject obj)
+            {
+                IPoolObject poolObject;
+                if (obj.TryGetComponent<IPoolObject>(out poolObject))
+                {
+                    poolObject.DestroyPoolObj();
+                }
+                obj.gameObject.SetActive(false);
+                pool[prefab].Enqueue(obj);
+            }
 
-        if (enemiesAlive <= 0)
-        {
-            Debug.Log("Wave completed!");
-            StartNextWave();
-        }
-    }
-
-    private GameObject GetFromPool()
-    {
-        if (enemyPool.Count > 0)
-        {
-            return enemyPool.Dequeue();
+            // Create a new object and add it to the pool
+            private void CreateNewObject(GameObject prefab)
+            {
+                GameObject newObj = Object.Instantiate(prefab, parent);
+                newObj.gameObject.SetActive(false);
+                pool[prefab].Enqueue(newObj);
+            }
         }
 
-        GameObject newEnemy = Instantiate(enemyPrefab);
-        return newEnemy;
-    }
 
-    private void ReturnToPool(GameObject enemy)
-    {
-        enemy.SetActive(false);
-        enemyPool.Enqueue(enemy);
-    }
-}
 
 }
