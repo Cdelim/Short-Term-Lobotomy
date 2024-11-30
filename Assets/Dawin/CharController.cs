@@ -1,24 +1,28 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 public class CharController : MonoBehaviour
 {
+    #region Character details
+
     public float speed = 10.0f;
     public float dodgeVelocity = 20.0f;
     public float health = 100.0f;
+    public bool vulnerable = true;
+    public float damageMultiplier = 1.0f;
+    
+    #endregion
+
+    #region components
 
     public GameObject anchor;
     public Camera cam;
     public GameObject gun;
 
-    public bool vulnerable = true;
-
-    public float damageMultiplier = 1.0f;
+    #endregion
 
     #region Input Values
 
@@ -32,6 +36,47 @@ public class CharController : MonoBehaviour
 
     #endregion
 
+    #region forgetting!
+
+    public float[] chancesOfLobotomy = new float[4];
+    public bool LobotomyTime = false;
+    public float increaseRate = 0.01f;
+    public int lockedElement = -1;
+    
+    public f
+
+    #endregion
+
+
+    void Start()
+    {
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        StartCoroutine(LobotomyTimer());
+    }
+
+    private IEnumerator LobotomyTimer()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(45f);
+            var counter = 0f;
+            while (counter < 15f)
+            {
+                counter += Time.deltaTime;
+            }
+
+            for(int i = 0; i<4;i++)
+            {
+                var chance = Random.Range(0.0f, 1.0f);
+                if (chancesOfLobotomy[i] > chance)
+                {
+                    lockedElement = i;
+                    UIHandler.instance.lockElement(i, duration);
+                }
+            }
+        }
+    }
 
     // Update is called once per frame
     void Update()

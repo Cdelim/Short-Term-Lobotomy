@@ -12,11 +12,10 @@ public class UIHandler : MonoBehaviour
 
     public RectTransform[] elementsUITransform;
     public RawImage[] elementsUI;
+    
+    private Color tempColor;
 
     #region Positional
-
-    public Preset[] transformPresets;
-    public Preset[] colorPresets;
 
     public RectTransform topPos = new RectTransform();
     public RawImage topImage;
@@ -55,6 +54,20 @@ public class UIHandler : MonoBehaviour
         leftImage = elementsUI[3];
     }
 
+    public void lockElement(int index)
+    {
+        tempColor = elementsUI[index].color;
+        elementsUI[index].GetComponent<RawImage>().color = new Color(0.3f,0.3f,0.3f,1);
+        StartCoroutine(UnlockElement(index));
+        
+    }
+
+    private IEnumerator UnlockElement(int index)
+    {
+        yield return new WaitForSeconds(1.0f);
+        elementsUI[index].GetComponent<RawImage>().color = tempColor;
+    }
+    
     public void RotateElement(int dir)
     {
         StartCoroutine(RotateUI(dir));
@@ -165,4 +178,6 @@ public class UIHandler : MonoBehaviour
             }
         }
     }
+    
+    
 }
