@@ -21,6 +21,11 @@
     {
         throw new System.NotImplementedException();
     }
+
+    protected override void GetDamage(ElementalType type)
+    {
+        throw new System.NotImplementedException();
+    }
 }
 
 
