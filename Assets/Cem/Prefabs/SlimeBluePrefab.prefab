@@ -119,6 +119,7 @@ GameObject:
   - component: {fileID: 4490259327620501083}
   - component: {fileID: 8902449666566292106}
   - component: {fileID: 5224022903860696619}
+  - component: {fileID: 7930625229636120059}
   m_Layer: 0
   m_Name: SlimeBluePrefab
   m_TagString: Untagged
@@ -163,6 +164,7 @@ MonoBehaviour:
     attackDeltaTime: 0
     elementalType: 0
   animationController: {fileID: 5224022903860696619}
+  navMeshAgent: {fileID: 7930625229636120059}
 --- !u!50 &4490259327620501083
 Rigidbody2D:
   serializedVersion: 4
@@ -248,3 +250,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 7775889422795466268}
+--- !u!195 &7930625229636120059
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9075857929130574265}
+  m_Enabled: 0
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

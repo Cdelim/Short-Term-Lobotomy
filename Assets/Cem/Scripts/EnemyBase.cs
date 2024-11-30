@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 public enum ElementalType
@@ -40,6 +41,7 @@ public abstract class EnemyBase : MonoBehaviour
     public bool isDeath { get; private set; }
 
     [SerializeField]protected EnemyAnimationController animationController;
+    [SerializeField]protected NavMeshAgent navMeshAgent;
 
     protected EnemyState enemyState = EnemyState.Idle;
     protected float timerSec;
@@ -48,7 +50,15 @@ public abstract class EnemyBase : MonoBehaviour
     protected virtual void Awake()
     {
         stopDistance = Random.Range(0, enemyAttributes.range);
+        navMeshAgent.updateRotation = false;
+        navMeshAgent.updateUpAxis = false;
+        navMeshAgent.speed = enemyAttributes.speedMax;
+        navMeshAgent.acceleration = enemyAttributes.acceleration;
+        navMeshAgent.stoppingDistance = stopDistance;
+        navMeshAgent.enabled = true;
+        animationController.PlayIdle();
     }
+
 
 
     protected virtual void Update()
@@ -58,8 +68,6 @@ public abstract class EnemyBase : MonoBehaviour
            // return;
         }
         FiniteStateMachine();
-
-
     }
 
 
@@ -80,11 +88,13 @@ public abstract class EnemyBase : MonoBehaviour
                 animationController.Move();
                 break;
             case EnemyState.Moving2Char:
-                enemyAttributes.currentSpeed += Time.deltaTime * enemyAttributes.acceleration;
-                enemyAttributes.currentSpeed = Mathf.Clamp(enemyAttributes.currentSpeed, 0, enemyAttributes.speedMax);
-                transform.position = Vector3.MoveTowards(transform.position, TargetTest.Instance.transform.position, enemyAttributes.currentSpeed * Time.deltaTime);
+                //enemyAttributes.currentSpeed += Time.deltaTime * enemyAttributes.acceleration;
+                //enemyAttributes.currentSpeed = Mathf.Clamp(enemyAttributes.currentSpeed, 0, enemyAttributes.speedMax);
+                //transform.position = Vector3.MoveTowards(transform.position, TargetTest.Instance.transform.position, enemyAttributes.currentSpeed * Time.deltaTime);
+                navMeshAgent.SetDestination(TargetTest.Instance.transform.position);
                 if (CheckCharIsInRange())
                 {
+                    navMeshAgent.isStopped = true;
                     enemyState = EnemyState.Attacking;
                     enemyAttributes.currentSpeed = 0f;
                     animationController.Attack();
@@ -101,6 +111,7 @@ public abstract class EnemyBase : MonoBehaviour
                 if (!CheckCharIsInRange())
                 {
                     enemyState = EnemyState.Moving2Char;
+                    navMeshAgent.isStopped = false;
                     animationController.Move();
                 }
                 break;
