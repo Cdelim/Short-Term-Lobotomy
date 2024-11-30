@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3381601760708490537}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.22737263, w: 0.9738078}
-  m_LocalPosition: {x: 0.6756916, y: 0.32548565, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.13294138, w: 0.9911239}
+  m_LocalPosition: {x: 0.5481949, y: 0.23464233, z: 0}
   m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
-  damage: 1
+  damage: 1683.7788
   lifeTime: 5
   hasCooldown: 0
   cooldown: 0.2
