@@ -8,7 +8,7 @@ public enum ElementalType
     Water = 0,
     Fire = 1,
     Earth = 2,
-    Wind = 3,
+    Electric = 3,
 }
 
 [System.Serializable]
@@ -111,7 +111,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected abstract void Attack();
     protected abstract void MoveCharacter();
     protected abstract void Die();
-
+    protected abstract void GetDamage(ElementalType type);
 
     protected bool IsDeath()
     {
@@ -129,7 +129,9 @@ public abstract class EnemyBase : MonoBehaviour
         }
         return false;
     }
-    protected float CalculateAttackPoint()
+
+
+    protected float CalculateDamagePoint()
     {
         return 0;
     }
