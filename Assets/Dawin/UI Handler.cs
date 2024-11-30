@@ -54,17 +54,17 @@ public class UIHandler : MonoBehaviour
         leftImage = elementsUI[3];
     }
 
-    public void lockElement(int index)
+    public void lockElement(int index, float duration)
     {
         tempColor = elementsUI[index].color;
         elementsUI[index].GetComponent<RawImage>().color = new Color(0.3f,0.3f,0.3f,1);
-        StartCoroutine(UnlockElement(index));
+        StartCoroutine(UnlockElement(index, duration));
         
     }
 
-    private IEnumerator UnlockElement(int index)
+    private IEnumerator UnlockElement(int index, float dur)
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(dur);
         elementsUI[index].GetComponent<RawImage>().color = tempColor;
     }
     

@@ -42,8 +42,8 @@ public class CharController : MonoBehaviour
     public bool LobotomyTime = false;
     public float increaseRate = 0.01f;
     public int lockedElement = -1;
-    
-    public f
+
+    public float lobotomyDuration = 15f;
 
     #endregion
 
@@ -72,7 +72,7 @@ public class CharController : MonoBehaviour
                 if (chancesOfLobotomy[i] > chance)
                 {
                     lockedElement = i;
-                    UIHandler.instance.lockElement(i, duration);
+                    UIHandler.instance.lockElement(i, lobotomyDuration);
                 }
             }
         }
