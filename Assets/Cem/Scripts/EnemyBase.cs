@@ -57,8 +57,9 @@ public abstract class EnemyBase : MonoBehaviour
         {
            // return;
         }
+        FiniteStateMachine();
 
-       
+
     }
 
 
@@ -76,7 +77,7 @@ public abstract class EnemyBase : MonoBehaviour
         {
             case EnemyState.Idle:
                 SetEnemyState(EnemyState.Moving2Char);
-                animationController.Walk();
+                animationController.Move();
                 break;
             case EnemyState.Moving2Char:
                 enemyAttributes.currentSpeed += Time.deltaTime * enemyAttributes.acceleration;
@@ -100,7 +101,7 @@ public abstract class EnemyBase : MonoBehaviour
                 if (!CheckCharIsInRange())
                 {
                     enemyState = EnemyState.Moving2Char;
-                    animationController.Walk();
+                    animationController.Move();
                 }
                 break;
             case EnemyState.Death:

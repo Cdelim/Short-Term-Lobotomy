@@ -17,11 +17,12 @@ public class EnemyAnimationController : MonoBehaviour
 
     public void Attack()
     {
+        animator.SetBool(walk, false);
         animator.SetTrigger(attack);
 
     }
 
-    public void Walk()
+    public void Move()
     {
         animator.SetBool(walk, true);
     }
