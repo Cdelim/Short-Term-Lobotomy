@@ -56,6 +56,7 @@ public abstract class EnemyBase : MonoBehaviour
         navMeshAgent.acceleration = enemyAttributes.acceleration;
         navMeshAgent.stoppingDistance = stopDistance;
         navMeshAgent.enabled = true;
+        animationController.PlayIdle();
     }
 
 
