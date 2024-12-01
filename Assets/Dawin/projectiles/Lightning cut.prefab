@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1867278149131738731}
   - component: {fileID: -3685298080917939228}
   - component: {fileID: 8864979402058334110}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lightning cut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3381601760708490537}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.99321806, w: 0.116266586}
-  m_LocalPosition: {x: 7.0859714, y: -11.520628, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.46647337, w: 0.88453525}
+  m_LocalPosition: {x: 2.568952, y: 7.0904756, z: 0}
   m_LocalScale: {x: 14.300001, y: 6.188117, z: 0.6334355}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 1416653638376395585}
   - component: {fileID: 4484142964621911315}
   - component: {fileID: 7210274840707278748}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lightning
   m_TagString: Untagged
   m_Icon: {fileID: 0}

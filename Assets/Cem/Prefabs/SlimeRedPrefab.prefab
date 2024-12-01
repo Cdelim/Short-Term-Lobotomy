@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4402742528776859231}
   - component: {fileID: 1182509650363118424}
   - component: {fileID: 8452338805032085692}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 4659692946737405152}
   - component: {fileID: 5343597327631746036}
   - component: {fileID: 9133915984946888854}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SlimeRedPrefab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ MonoBehaviour:
     currentSpeed: 0
     speedMax: 5
     acceleration: 3
-    range: 2
+    range: 5
     health: 100
     attackDamage: 20
     attackDeltaTime: 3

@@ -7,7 +7,7 @@ namespace Utility
     {
         public List<GameObject> prefabList;
         public static ObjectPool Instance;
-        private readonly Dictionary<GameObject, Queue<GameObject>> pool = new Dictionary<GameObject, Queue<GameObject>>();
+        public Dictionary<GameObject, Queue<GameObject>> pool = new Dictionary<GameObject, Queue<GameObject>>();
         
         private readonly Transform parent;
         private readonly int initialSize = 30;
@@ -63,7 +63,15 @@ namespace Utility
                 poolObject.DestroyPoolObj();
             }
             obj.gameObject.SetActive(false);
-            pool[obj].Enqueue(obj);
+            if (pool.TryGetValue(obj, out Queue<GameObject> que))
+            {
+                que.Enqueue(obj);
+
+            }
+            else
+            {
+                pool.Add(obj, new Queue<GameObject>());
+            }
         }
 
         // Create a new object and add it to the pool

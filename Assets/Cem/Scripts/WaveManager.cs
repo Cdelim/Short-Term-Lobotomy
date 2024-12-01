@@ -64,6 +64,7 @@ namespace Utility
             }
 
             currentWaveIndex++;
+            Debug.Log("Next wave!");
             currentWave = waves[currentWaveIndex];
             StartCoroutine(SpawnEnemies());
         }

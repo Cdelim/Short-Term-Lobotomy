@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3675345031572317057}
   - component: {fileID: 1360340680249460635}
   - component: {fileID: 5787288322034614057}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SlimeOrangePrefab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ MonoBehaviour:
     currentSpeed: 0
     speedMax: 5
     acceleration: 3
-    range: 2
+    range: 4
     health: 100
     attackDamage: 20
     attackDeltaTime: 3
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 2909725459544720389}
   - component: {fileID: 7403750157100490404}
   - component: {fileID: 2642139372225563070}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

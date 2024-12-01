@@ -29,6 +29,8 @@ public static class ElementalCalc
                         return 1.25f;
                     case ElementalType.Electric:
                         return 1;
+                    default:
+                        return .5f;
                 }
 
                 break;
@@ -43,6 +45,8 @@ public static class ElementalCalc
                         return 1f;
                     case ElementalType.Electric:
                         return 1.25f;
+                    default:
+                        return .5f;
                 }
 
                 break;
@@ -57,6 +61,8 @@ public static class ElementalCalc
                         return 0.5f;
                     case ElementalType.Water:
                         return 0.6f;
+                    default:
+                        return .5f;
                 }
 
                 break;
@@ -71,6 +77,8 @@ public static class ElementalCalc
                         return 1.25f;
                     case ElementalType.Electric:
                         return 0.6f;
+                    default:
+                        return .5f;
                 }
 
                 break;
@@ -101,6 +109,7 @@ public enum EnemyState
     Moving2Char = 1,
     Attacking = 2,
     Death = 3,
+    WaitingInPool = 4,
 }
 
 
@@ -178,6 +187,7 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
                 {
                     timerSec = 0f;
                     animationController.Attack();
+                    Attack();
                 }
 
                 if (!CheckCharIsInRange())
@@ -189,15 +199,20 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
 
                 break;
             case EnemyState.Death:
-                
+
+                if(timerSec >= .5f)
+                {
+                    SetEnemyState(EnemyState.WaitingInPool);
+                    Die();
+                }
 
                 if (timerSec <= 0)
                 {
+                    animationController.Die();
                     navMeshAgent.isStopped = true;
                 }
 
                 timerSec += Time.deltaTime;
-                animationController.Die();
                 break;
         }
 
@@ -211,12 +226,7 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
             spriteRenderer.flipX = false;
         }
 
-        if (IsDeath() && !isDeath)
-        {
-            SetEnemyState(EnemyState.Death);
-            timerSec = 0;
-            isDeath = true;
-        }
+        
     }
 
     protected abstract void Attack();
@@ -230,14 +240,20 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
 
     public virtual void GetDamage(float damage, ElementalType type)
     {
+        if (isDeath)
+        {
+            return;
+        }
         float damagePoint = damage * ElementalCalc.ElementalWeakness(type, enemyAttributes.elementalType);
         enemyAttributes.health -= damagePoint;
         animationController.GetAttacked();
         if (IsDeath())
         {
             SetEnemyState(EnemyState.Death);
-            Die();
+            timerSec = 0;
+            isDeath = true;
         }
+
     }
 
     protected bool IsDeath()
@@ -253,6 +269,7 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
     protected bool CheckCharIsInRange()
     {
         float distance = Vector2.Distance(targetChar.transform.position, transform.position);
+        Debug.Log("Distance to Char: " + distance);
         if (distance <= stopDistance) //todo maybe you can calculate with sqrmagnitude
         {
             return true;
@@ -286,6 +303,8 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
         navMeshAgent.enabled = true;
         animationController.PlayIdle();
         navMeshAgent.isStopped = false;
+        isDeath = false;
+        SetEnemyState(EnemyState.Idle);
 
         targetChar = Utility.WaveManager.Instance.Character;
     }
@@ -293,5 +312,6 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
     public virtual void DestroyPoolObj()
     {
         navMeshAgent.enabled = false;
+        isDeath = false;
     }
 }

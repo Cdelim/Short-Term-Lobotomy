@@ -8,11 +8,12 @@ public class EnemyAnimationController : MonoBehaviour
     private int attack = Animator.StringToHash("Attack");
     private int walk = Animator.StringToHash("Walk");
     private int die = Animator.StringToHash("Die");
-    private int damaged = Animator.StringToHash("GetAttacked");
+    private int damaged = Animator.StringToHash("GetDamaged");
 
 
     public void PlayIdle()
     {
+        animator.SetBool(walk, false);
         animator.SetTrigger(idle);
     }
 
@@ -35,7 +36,9 @@ public class EnemyAnimationController : MonoBehaviour
 
     public void GetAttacked()
     {
+        animator.SetBool(walk, false);
         animator.SetTrigger(damaged);
+
     }
 
 }

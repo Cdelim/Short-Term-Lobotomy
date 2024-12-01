@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1867278149131738731}
   - component: {fileID: 9216493056784215064}
   - component: {fileID: -1537022032791906022}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Fire Burst
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3381601760708490537}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.9405876, w: 0.33955118}
-  m_LocalPosition: {x: 3.2675338, y: -14.086576, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.48408815, w: 0.87501925}
+  m_LocalPosition: {x: 5.967887, y: 6.5036235, z: 0}
   m_LocalScale: {x: 0.19, y: 0.19, z: 0.19}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 1863095625570846406}
   - component: {fileID: 4638763733568925691}
   - component: {fileID: 1842377605690154857}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: s
   m_TagString: Untagged
   m_Icon: {fileID: 0}

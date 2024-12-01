@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3114964586555028851}
   - component: {fileID: 2536540813088258942}
   - component: {fileID: 6177954766329447881}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 1644127193445051735}
   - component: {fileID: 5929987555749022559}
   - component: {fileID: 3142931280765861952}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SlimeYellowPrefab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ MonoBehaviour:
     currentSpeed: 0
     speedMax: 3
     acceleration: 1
-    range: 4
+    range: 9
     health: 100
     attackDamage: 15
     attackDeltaTime: 1
@@ -319,7 +319,7 @@ TrailRenderer:
   m_SortingLayerID: 1330568789
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Time: 0.4
+  m_Time: 1
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -351,7 +351,7 @@ TrailRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 0.92156863, g: 0.87058824, b: 0.6392157, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 0.24313726}
+      key1: {r: 1, g: 1, b: 1, a: 0.7058824}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
