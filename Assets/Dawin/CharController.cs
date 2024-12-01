@@ -525,18 +525,16 @@ public class CharController : MonoBehaviour
             }
         }
     }
-
-    public void OnCollisionEnter(Collision other)
+    
+    public void GetDamage(float damage, ElementalType type)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        float damagePoint = damage * ElementalCalc.ElementalWeakness(type, currentType);
+        health -= damagePoint;
+        anim.SetTrigger("Damage");
+        if (health <= 0)
         {
-            //var damage = other.gameObject.GetComponent<EnemyBase>();
-            //health -= damage;
-            anim.SetTrigger("Damage");
-            if (health <= 0)
-            {
-                //Death!
-            }
+            _escaped = true;
+            //UIHandler.instance.GameOver();
         }
     }
 }
