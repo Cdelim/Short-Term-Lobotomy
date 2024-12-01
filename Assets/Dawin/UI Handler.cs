@@ -63,7 +63,7 @@ public class UIHandler : MonoBehaviour
 
     public void UnlockElement(int index)
     {
-        elementsUI[index].GetComponent<Image>().color = tempColor;
+        elementsUI[index].GetComponent<Image>().color = new Color(1,1,1,1);
     }
     
     public void RotateElement(int dir)

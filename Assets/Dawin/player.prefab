@@ -247,7 +247,7 @@ MonoBehaviour:
   vulnerable: 1
   damageMultiplier: 1
   shootAllowed: 1
-  currentType: 0
+  currentType: 1
   possibleLobotomy: 0
   fireMul: 1
   waterMul: 1

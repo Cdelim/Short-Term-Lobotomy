@@ -33,7 +33,6 @@ public static class ElementalCalc
                         return .5f;
                 }
 
-                break;
             case ElementalType.Earth:
                 switch (def)
                 {
@@ -48,8 +47,6 @@ public static class ElementalCalc
                     default:
                         return .5f;
                 }
-
-                break;
             case ElementalType.Water:
                 switch (def)
                 {
@@ -64,8 +61,6 @@ public static class ElementalCalc
                     default:
                         return .5f;
                 }
-
-                break;
             case ElementalType.Electric:
                 switch (def)
                 {
@@ -80,8 +75,6 @@ public static class ElementalCalc
                     default:
                         return .5f;
                 }
-
-                break;
         }
 
         return 1.0f;

@@ -111,25 +111,25 @@ public class CharController : MonoBehaviour
             {
                 counter += Time.deltaTime;
             }
-
-            if (lobotomyTime)
+            if (!lobotomyTime)
             {
-                yield return null;
-            }
-            for(int i = 0; i<4;i++)
-            {
-                var chance = Random.Range(0.0f, 1.0f);
-                Debug.Log(chance);
-                if (chancesOfLobotomy[i] > chance)
+                possibleLobotomy = false;
+                for (int i = 0; i < 4; i++)
                 {
-                    StartCoroutine(TextDisplay(i));
-                    lobotomyTime = true;
-                    lockedElement = i;
-                    UIHandler.instance.lockElement(i);
-                    StartCoroutine(KeepLobotomy(i));
-                    break;
+                    var chance = Random.Range(0.0f, 1.0f);
+                    Debug.Log(chance);
+                    if (chancesOfLobotomy[i] > chance)
+                    {
+                        StartCoroutine(TextDisplay(i));
+                        lobotomyTime = true;
+                        lockedElement = i;
+                        UIHandler.instance.lockElement(i);
+                        StartCoroutine(KeepLobotomy(i));
+                        break;
+                    }
                 }
             }
+            
         }
     }
 
@@ -253,12 +253,14 @@ public class CharController : MonoBehaviour
             if (images[j].isCorrect)
             {
                 symbolMember[j].GetComponent<Button>().onClick.AddListener(() => rightAnwser = true);
+                symbolMember[j].GetComponent<Button>().onClick.AddListener(() => clicked = true);
             }
             else
             {
                 symbolMember[j].GetComponent<Button>().onClick.AddListener(() => rightAnwser = false);
+                symbolMember[j].GetComponent<Button>().onClick.AddListener(() => clicked = true);
             }
-            symbolMember[j].GetComponent<Button>().onClick.AddListener(() => clicked = true );
+            
         }
         shootAllowed = false;
         rememberScreen.SetActive(true);
