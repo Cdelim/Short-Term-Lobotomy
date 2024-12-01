@@ -203,6 +203,7 @@ GameObject:
   - component: {fileID: 8666074772119190431}
   - component: {fileID: 8141861028552513116}
   - component: {fileID: 706024770345181420}
+  - component: {fileID: 2641540610610682321}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -247,11 +248,13 @@ MonoBehaviour:
   damageMultiplier: 1
   shootAllowed: 1
   currentType: 0
+  possibleLobotomy: 0
   fireMul: 1
   waterMul: 1
   earthMul: 1
   lightningMul: 1
   anim: {fileID: 7914165193735358152}
+  lobotomyText: {fileID: 0}
   sprite: {fileID: 6949498019004655860}
   anchor: {fileID: 3059733540882969237}
   cam: {fileID: 7415807162758850464}
@@ -464,6 +467,14 @@ MonoBehaviour:
       m_Hash: 0
       m_Sprite: {fileID: -1109798692, guid: f1900dc1e5bf7c94683915eb12342138, type: 3}
   m_SpriteLibraryAsset: {fileID: 0}
+--- !u!81 &2641540610610682321
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2830214005210219907}
+  m_Enabled: 1
 --- !u!1 &3059733540882969237
 GameObject:
   m_ObjectHideFlags: 0

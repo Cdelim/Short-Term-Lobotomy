@@ -130,6 +130,9 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
     [SerializeField]protected NavMeshAgent navMeshAgent;
     [SerializeField]protected GameObject projectilePrefab;
     [SerializeField]protected SpriteRenderer spriteRenderer;
+    [SerializeField]protected AudioSource sfxSource;
+    [SerializeField]protected AudioClip dieAudioClip;
+    [SerializeField]protected AudioClip getDamagedAudioClip;
 
     protected EnemyState enemyState = EnemyState.Idle;
     protected float timerSec;
@@ -234,6 +237,7 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
 
     protected virtual void Die()
     {
+        sfxSource.PlayOneShot(dieAudioClip);
         DestroyPoolObj();
         Utility.WaveManager.Instance.EnemyDefeated(this.gameObject);
     }
@@ -244,6 +248,8 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
         {
             return;
         }
+
+        sfxSource.PlayOneShot(getDamagedAudioClip);
         float damagePoint = damage * ElementalCalc.ElementalWeakness(type, enemyAttributes.elementalType);
         enemyAttributes.health -= damagePoint;
         animationController.GetAttacked();
