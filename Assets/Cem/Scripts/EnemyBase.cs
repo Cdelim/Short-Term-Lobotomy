@@ -119,7 +119,6 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
 
     [SerializeField]protected EnemyAnimationController animationController;
     [SerializeField]protected NavMeshAgent navMeshAgent;
-    [SerializeField]protected GameObject diePrefab;
     [SerializeField]protected GameObject projectilePrefab;
     [SerializeField]protected SpriteRenderer spriteRenderer;
 
@@ -197,8 +196,7 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
 
                 if (timerSec <= 0)
                 {
-                    createdDieVFX = Utility.ObjectPool.Instance.GetFromPool(diePrefab);
-                    createdDieVFX.transform.position = transform.position;
+                    navMeshAgent.isStopped = true;
                 }
 
                 timerSec += Time.deltaTime;
