@@ -151,22 +151,7 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
 
     protected void FiniteStateMachine()
     {
-        Vector2 dir = (targetChar.transform.position - transform.position).normalized;
-        if (Vector2.Dot(dir, Vector2.right) < 0)
-        {
-            spriteRenderer.flipX = true;
-        }
-        else
-        {
-            spriteRenderer.flipX = false;
-        }
-
-        if (IsDeath())
-        {
-            SetEnemyState(EnemyState.Death);
-            timerSec = 0;
-            isDeath = true;
-        }
+        
 
         switch (enemyState)
         {
@@ -220,6 +205,23 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
                 animationController.Die();
                 break;
         }
+
+        Vector2 dir = (targetChar.transform.position - transform.position).normalized;
+        if (Vector2.Dot(dir, Vector2.right) < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else
+        {
+            spriteRenderer.flipX = false;
+        }
+
+        if (IsDeath() && !isDeath)
+        {
+            SetEnemyState(EnemyState.Death);
+            timerSec = 0;
+            isDeath = true;
+        }
     }
 
     protected abstract void Attack();
@@ -236,7 +238,7 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
         float damagePoint = damage * ElementalCalc.ElementalWeakness(type, enemyAttributes.elementalType);
         enemyAttributes.health -= damagePoint;
         animationController.GetAttacked();
-        if (isDeath)
+        if (IsDeath())
         {
             Die();
         }
