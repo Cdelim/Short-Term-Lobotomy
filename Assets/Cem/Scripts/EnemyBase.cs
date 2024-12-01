@@ -12,6 +12,74 @@ public enum ElementalType
     Electric = 3,
 }
 
+public static class ElementalCalc
+{
+    public static float ElementalWeakness(ElementalType atk, ElementalType def)
+    {
+        switch (atk)
+        {
+            case ElementalType.Fire:
+                switch (def)
+                {
+                    case ElementalType.Fire:
+                        return 0.6f;
+                    case ElementalType.Water:
+                        return 0.5f;
+                    case ElementalType.Earth:
+                        return 1.25f;
+                    case ElementalType.Electric:
+                        return 1;
+                }
+
+                break;
+            case ElementalType.Earth:
+                switch (def)
+                {
+                    case ElementalType.Fire:
+                        return 0.5f;
+                    case ElementalType.Earth:
+                        return 0.6f;
+                    case ElementalType.Water:
+                        return 1f;
+                    case ElementalType.Electric:
+                        return 1.25f;
+                }
+
+                break;
+            case ElementalType.Water:
+                switch (def)
+                {
+                    case ElementalType.Fire:
+                        return 1.25f;
+                    case ElementalType.Earth:
+                        return 1;
+                    case ElementalType.Electric:
+                        return 0.5f;
+                    case ElementalType.Water:
+                        return 0.6f;
+                }
+
+                break;
+            case ElementalType.Electric:
+                switch (def)
+                {
+                    case ElementalType.Earth:
+                        return 0.5f;
+                    case ElementalType.Fire:
+                        return 1;
+                    case ElementalType.Water:
+                        return 1.25f;
+                    case ElementalType.Electric:
+                        return 0.6f;
+                }
+
+                break;
+        }
+
+        return 1.0f;
+    }
+}
+
 [System.Serializable]
 public class EnemyAttributes
 {
@@ -24,8 +92,6 @@ public class EnemyAttributes
     public float attackDeltaTime;
     public float dieTimeSec;
     public ElementalType elementalType;
-
-    
 }
 
 
@@ -47,15 +113,21 @@ public interface IPoolObject
 
 public abstract class EnemyBase : MonoBehaviour, IPoolObject
 {
-
     public EnemyAttributes enemyAttributes;
     public bool isDeath { get; private set; }
 
+<<<<<<< Updated upstream
     [SerializeField]protected EnemyAnimationController animationController;
     [SerializeField]protected NavMeshAgent navMeshAgent;
     [SerializeField]protected GameObject diePrefab;
     [SerializeField]protected GameObject projectilePrefab;
     [SerializeField]protected SpriteRenderer spriteRenderer;
+=======
+    [SerializeField] protected EnemyAnimationController animationController;
+    [SerializeField] protected NavMeshAgent navMeshAgent;
+    [SerializeField] protected GameObject diePrefab;
+    [SerializeField] protected GameObject projectilePrefab;
+>>>>>>> Stashed changes
 
     protected EnemyState enemyState = EnemyState.Idle;
     protected float timerSec;
@@ -73,20 +145,19 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
     }
 
 
-
     protected virtual void Update()
     {
 //        if(GameManager.Instance.GameState != GameState.Playing) //fixme
         {
-           // return;
+            // return;
         }
         FiniteStateMachine();
     }
 
 
-
     protected void FiniteStateMachine()
     {
+<<<<<<< Updated upstream
         Vector2 dir = (targetChar.transform.position - transform.position).normalized;
         if (Vector2.Dot(dir, Vector2.right) < 0)
         {
@@ -97,6 +168,8 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
             spriteRenderer.flipX = false;
         }
 
+=======
+>>>>>>> Stashed changes
         if (IsDeath())
         {
             SetEnemyState(EnemyState.Death);
@@ -122,28 +195,31 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
                     enemyAttributes.currentSpeed = 0f;
                     animationController.Attack();
                 }
+
                 break;
             case EnemyState.Attacking:
                 timerSec += Time.deltaTime;
-                if(timerSec >= enemyAttributes.attackDeltaTime)
+                if (timerSec >= enemyAttributes.attackDeltaTime)
                 {
                     timerSec = 0f;
                     animationController.Attack();
-
                 }
+
                 if (!CheckCharIsInRange())
                 {
                     enemyState = EnemyState.Moving2Char;
                     navMeshAgent.isStopped = false;
                     animationController.Move();
                 }
+
                 break;
             case EnemyState.Death:
-                if(timerSec >= enemyAttributes.dieTimeSec)
+                if (timerSec >= enemyAttributes.dieTimeSec)
                 {
                     Die();
                 }
-                if(timerSec <= 0)
+
+                if (timerSec <= 0)
                 {
                     createdDieVFX = Utility.ObjectPool.Instance.GetFromPool(diePrefab);
                     createdDieVFX.transform.position = transform.position;
@@ -154,32 +230,45 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
                 break;
         }
     }
+
     protected abstract void Attack();
     protected abstract void MoveCharacter();
+
     protected virtual void Die()
     {
         DestroyPoolObj();
         Utility.WaveManager.Instance.EnemyDefeated(this.gameObject);
     }
-    protected virtual void GetDamage(ElementalType type)
+
+    public virtual void GetDamage(float damage, ElementalType type)
     {
+        float damagePoint = damage * ElementalCalc.ElementalWeakness(type, enemyAttributes.elementalType);
+        enemyAttributes.health -= damagePoint;
         animationController.GetAttacked();
+        if (isDeath)
+        {
+            Die();
+        }
     }
 
     protected bool IsDeath()
     {
-        if(enemyAttributes.health<= 0)
+        if (enemyAttributes.health <= 0)
         {
             return true;
         }
+
         return false;
     }
+
     protected bool CheckCharIsInRange()
     {
-        if(Vector2.Distance(targetChar.transform.position, transform.position)<= stopDistance)//todo maybe you can calculate with sqrmagnitude
+        if (Vector2.Distance(targetChar.transform.position, transform.position) <=
+            stopDistance) //todo maybe you can calculate with sqrmagnitude
         {
             return true;
         }
+
         return false;
     }
 

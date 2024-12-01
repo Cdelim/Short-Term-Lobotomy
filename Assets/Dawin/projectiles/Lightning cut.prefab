@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3109063450215370956}
   - component: {fileID: 1867278149131738731}
   - component: {fileID: -3685298080917939228}
+  - component: {fileID: 8864979402058334110}
   m_Layer: 0
   m_Name: Lightning cut
   m_TagString: Untagged
@@ -27,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3381601760708490537}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.10544183, w: 0.9944255}
-  m_LocalPosition: {x: -5.2706633, y: -3.4405408, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.034540147, w: 0.9994033}
+  m_LocalPosition: {x: 0.97766167, y: -1.5886132, z: 0}
   m_LocalScale: {x: 14.300001, y: 6.188117, z: 0.6334355}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -104,7 +105,7 @@ MonoBehaviour:
   lifeTime: 3
   hasCooldown: 0
   cooldown: 0.2
-  continues: 1
+  continues: 0
 --- !u!70 &-3685298080917939228
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -134,12 +135,39 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.006145705, y: 0.037886355}
   m_Size: {x: 0.092677176, y: 0.08385315}
   m_Direction: 1
+--- !u!50 &8864979402058334110
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3381601760708490537}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7306462160220243389
 GameObject:
   m_ObjectHideFlags: 0

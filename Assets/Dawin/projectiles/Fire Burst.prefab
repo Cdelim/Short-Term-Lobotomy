@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3109063450215370956}
   - component: {fileID: 1867278149131738731}
   - component: {fileID: 9216493056784215064}
+  - component: {fileID: -1537022032791906022}
   m_Layer: 0
   m_Name: Fire Burst
   m_TagString: Untagged
@@ -27,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3381601760708490537}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.99632746, w: 0.08562494}
-  m_LocalPosition: {x: 3.9396095, y: -14.984172, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.38148326, w: 0.9243758}
+  m_LocalPosition: {x: -10.890165, y: 6.058542, z: 0}
   m_LocalScale: {x: 0.19, y: 0.19, z: 0.19}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -99,12 +100,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a959c84aff4953c4f84129534669a677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 16.17352
-  damage: 2862.424
+  speed: 10
+  damage: 2
   lifeTime: 0.4
   hasCooldown: 0
   cooldown: 0.4
-  continues: 1
+  continues: 0
 --- !u!58 &9216493056784215064
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -134,12 +135,39 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!50 &-1537022032791906022
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3381601760708490537}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &4689996911240905685
 GameObject:
   m_ObjectHideFlags: 0

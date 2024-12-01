@@ -272,6 +272,7 @@ public class CharController : MonoBehaviour
         lobotomyTime = false;
         lockedElement = -1;
         shootAllowed = true;
+        chancesOfLobotomy[i] = 0.0f;
         UIHandler.instance.UnlockElement(index);
     }
 

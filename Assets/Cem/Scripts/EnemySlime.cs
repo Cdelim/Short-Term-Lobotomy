@@ -20,8 +20,15 @@
     {
     }
 
-    protected override void GetDamage(ElementalType type)
+    public override void GetDamage(float damage, ElementalType type)
     {
+        float damagePoint = damage * ElementalCalc.ElementalWeakness(type, enemyAttributes.elementalType);
+        enemyAttributes.health -= damagePoint;
+        animationController.GetAttacked();
+        if (isDeath)
+        {
+            Die();
+        }
     }
 }
 

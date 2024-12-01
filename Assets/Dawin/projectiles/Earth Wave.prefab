@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 8619982363254802415}
   - component: {fileID: 1867278149131738731}
   - component: {fileID: -3685298080917939228}
+  - component: {fileID: -2877156656208556939}
   m_Layer: 0
   m_Name: Earth Wave
   m_TagString: Untagged
@@ -194,8 +195,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3381601760708490537}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.17056723, w: 0.985346}
-  m_LocalPosition: {x: 0.023729682, y: -2.2964027, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: -0.99982965, w: 0.018460257}
+  m_LocalPosition: {x: -0.023428261, y: 8.385745, z: 0}
   m_LocalScale: {x: 1.7490441, y: 2.31, z: 0.41788438}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -221,7 +222,7 @@ MonoBehaviour:
   speed: 4
   damage: 20
   lifeTime: 5
-  hasCooldown: 0
+  hasCooldown: 1
   cooldown: 2
   continues: 1
 --- !u!70 &-3685298080917939228
@@ -253,12 +254,39 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.01032351, y: -0.0037893278}
   m_Size: {x: 1.2820963, y: 2.0220952}
   m_Direction: 0
+--- !u!50 &-2877156656208556939
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3381601760708490537}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &3594746530618122757
 GameObject:
   m_ObjectHideFlags: 0
