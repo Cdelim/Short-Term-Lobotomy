@@ -19,6 +19,7 @@ public class CharController : MonoBehaviour
     public float damageMultiplier = 1.0f;
     public bool shootAllowed = true;
     public ElementalType currentType;
+    public bool possibleLobotomy = false;
 
     public float fireMul = 1.0f;
     public float waterMul = 1.0f;
@@ -104,9 +105,15 @@ public class CharController : MonoBehaviour
             }
             yield return new WaitForSeconds(45f);
             var counter = 0f;
+            possibleLobotomy = true;
             while (counter < 15f)
             {
                 counter += Time.deltaTime;
+            }
+
+            if (lobotomyTime)
+            {
+                yield return null;
             }
             for(int i = 0; i<4;i++)
             {
@@ -275,6 +282,7 @@ public class CharController : MonoBehaviour
         shootAllowed = true;
         chancesOfLobotomy[i] = 0.0f;
         UIHandler.instance.UnlockElement(index);
+        StartCoroutine(LobotomyTimer());
     }
 
     private IEnumerator BonusDamage(int index)
@@ -535,6 +543,25 @@ public class CharController : MonoBehaviour
         float damagePoint = damage * ElementalCalc.ElementalWeakness(type, currentType);
         health -= damagePoint;
         anim.SetTrigger("Damage");
+
+        if (possibleLobotomy)
+        {
+            for(int i = 0; i<4;i++)
+            {
+                var chance = Random.Range(0.0f, 1.0f);
+                Debug.Log(chance);
+                if (chancesOfLobotomy[i] > chance)
+                {
+                    StartCoroutine(TextDisplay(i));
+                    lobotomyTime = true;
+                    lockedElement = i;
+                    UIHandler.instance.lockElement(i);
+                    StartCoroutine(KeepLobotomy(i));
+                    break;
+                }
+            }
+            possibleLobotomy = false;
+        }
         if (health <= 0)
         {
             _escaped = true;
