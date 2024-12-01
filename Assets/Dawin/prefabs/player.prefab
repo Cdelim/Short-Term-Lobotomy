@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 1863163793129907786}
   - component: {fileID: 3334475638062838778}
   - component: {fileID: 5600758574725847348}
+  - component: {fileID: 220341835397584540}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -147,6 +148,7 @@ MonoBehaviour:
   health: 100
   vulnerable: 1
   damageMultiplier: 1
+  shootAllowed: 1
   fireMul: 1
   waterMul: 1
   earthMul: 1
@@ -185,10 +187,7 @@ MonoBehaviour:
     isCorrect: 0
   - image: {fileID: 0}
     isCorrect: 0
-  Member:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  symbolMember: []
   slider: {fileID: 0}
   timerSlider: {fileID: 0}
   text: {fileID: 0}
@@ -205,7 +204,7 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  LobotomyTime: 0
+  lobotomyTime: 0
   increaseRate: 0.01
   lockedElement: -1
   lobotomyDuration: 15
@@ -367,6 +366,33 @@ MonoBehaviour:
       m_Hash: 0
       m_Sprite: {fileID: -1109798692, guid: f1900dc1e5bf7c94683915eb12342138, type: 3}
   m_SpriteLibraryAsset: {fileID: 0}
+--- !u!50 &220341835397584540
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2687953427003574707}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!1 &2694482926293306320
 GameObject:
   m_ObjectHideFlags: 0

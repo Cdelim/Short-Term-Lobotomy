@@ -22,6 +22,7 @@ public class EnemyAttributes
     public float health;
     public float attackDamage;
     public float attackDeltaTime;
+    public float dieTimeSec;
     public ElementalType elementalType;
 
     
@@ -52,18 +53,22 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
 
     [SerializeField]protected EnemyAnimationController animationController;
     [SerializeField]protected NavMeshAgent navMeshAgent;
+    [SerializeField]protected GameObject diePrefab;
+    [SerializeField]protected GameObject projectilePrefab;
 
     protected EnemyState enemyState = EnemyState.Idle;
     protected float timerSec;
     protected float stopDistance;
 
     protected CharController targetChar;
+    protected GameObject createdDieVFX;
 
     protected virtual void Awake()
     {
         stopDistance = Random.Range(0, enemyAttributes.range);
         navMeshAgent.updateRotation = false;
         navMeshAgent.updateUpAxis = false;
+        navMeshAgent.angularSpeed = 0;
     }
 
 
@@ -85,6 +90,7 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
         if (IsDeath())
         {
             SetEnemyState(EnemyState.Death);
+            timerSec = 0;
             isDeath = true;
         }
 
@@ -123,6 +129,17 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
                 }
                 break;
             case EnemyState.Death:
+                if(timerSec >= enemyAttributes.dieTimeSec)
+                {
+                    Die();
+                }
+                if(timerSec <= 0)
+                {
+                    createdDieVFX = Utility.ObjectPool.Instance.GetFromPool(diePrefab);
+                    createdDieVFX.transform.position = transform.position;
+                }
+
+                timerSec += Time.deltaTime;
                 animationController.Die();
                 break;
         }
@@ -180,6 +197,7 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
         navMeshAgent.stoppingDistance = stopDistance;
         navMeshAgent.enabled = true;
         animationController.PlayIdle();
+        navMeshAgent.isStopped = false;
 
         targetChar = Utility.WaveManager.Instance.Character;
     }

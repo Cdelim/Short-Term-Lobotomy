@@ -23,7 +23,6 @@ namespace Utility
             {
                 Destroy(gameObject);
             }
-            DontDestroyOnLoad(this);
             foreach (var obj in prefabList)
             {
                 for (int i = 0; i < initialSize; i++)
@@ -46,12 +45,12 @@ namespace Utility
             }
 
             GameObject obj = pool[prefab].Dequeue();
-            IPoolObject poolObject;
-            if (obj.TryGetComponent<IPoolObject>(out poolObject))
+            
+            obj.gameObject.SetActive(true);
+            if (obj.TryGetComponent<IPoolObject>(out IPoolObject poolObject))
             {
                 poolObject.Initialize();
             }
-            obj.gameObject.SetActive(true);
             return obj;
         }
 
@@ -72,7 +71,15 @@ namespace Utility
         {
             GameObject newObj = Object.Instantiate(prefab, parent);
             newObj.gameObject.SetActive(false);
-            pool[prefab].Enqueue(newObj);
+            if(pool.TryGetValue(prefab,out Queue<GameObject> que))
+            {
+                que.Enqueue(newObj);
+
+            }
+            else
+            {
+                pool.Add(prefab, new Queue<GameObject>());
+            }
         }
     }
 

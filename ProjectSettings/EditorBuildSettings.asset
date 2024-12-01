@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Cem/Scene/StartScene.unity
     guid: b10c56d3e7ba344c4881ffc9d8bc1542
   - enabled: 1
+    path: Assets/Cem/Scene/LevelScene.unity
+    guid: 22e38d745a324422888cbafbe4210a01
+  - enabled: 0
     path: Assets/Dawin/Dawin's scene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}

@@ -76,7 +76,6 @@ namespace Utility
                 GameObject enemy = ObjectPool.Instance.GetFromPool(currentWave.GetRandomPrefab());
                 enemy.transform.position = spawnPoint.position;
                 enemy.transform.rotation = Quaternion.identity;
-                enemy.SetActive(true); // Activate the enemy
                 enemiesAlive++;
 
                 yield return new WaitForSeconds(0.5f); // Delay between spawns
