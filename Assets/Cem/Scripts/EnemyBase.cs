@@ -55,6 +55,7 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
     [SerializeField]protected NavMeshAgent navMeshAgent;
     [SerializeField]protected GameObject diePrefab;
     [SerializeField]protected GameObject projectilePrefab;
+    [SerializeField]protected SpriteRenderer spriteRenderer;
 
     protected EnemyState enemyState = EnemyState.Idle;
     protected float timerSec;
@@ -86,6 +87,15 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
 
     protected void FiniteStateMachine()
     {
+        Vector2 dir = (targetChar.transform.position - transform.position).normalized;
+        if (Vector2.Dot(dir, Vector2.right) < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else
+        {
+            spriteRenderer.flipX = false;
+        }
 
         if (IsDeath())
         {
