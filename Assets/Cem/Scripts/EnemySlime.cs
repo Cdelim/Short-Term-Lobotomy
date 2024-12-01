@@ -9,22 +9,20 @@
     }
     protected override void Attack()
     {
-        throw new System.NotImplementedException();
+
     }
 
     protected override void Die()
     {
-        throw new System.NotImplementedException();
+        base.Die();
     }
 
     protected override void MoveCharacter()
     {
-        throw new System.NotImplementedException();
     }
 
     protected override void GetDamage(ElementalType type)
     {
-        throw new System.NotImplementedException();
     }
 }
 
