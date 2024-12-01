@@ -31,6 +31,7 @@ public class CharController : MonoBehaviour
     #region components
 
     public Animator anim;
+    public GameObject lobotomyText;
     public SpriteRenderer sprite;
     public GameObject anchor;
     public Camera cam;
@@ -150,46 +151,48 @@ public class CharController : MonoBehaviour
                 text.text = "LOBOTOMY TIME!\nWater!";
                 break;
         }
-
         var counter = 0f;
         while (counter < 2f)
         {
             counter+= Time.deltaTime;
-            text.color = new Color(1, 1, 1, counter / 2f);
+            //text.color = new Color(1, 1, 1, counter / 2f);
             yield return null;
         }
 
         while (counter > 0f)
         {
             counter-= Time.deltaTime;
-            text.color = new Color(1, 1, 1, counter / 2f);
+            //text.color = new Color(1, 1, 1, counter / 2f);
             yield return null;
         }
         text.text = "";
     }
 
     private IEnumerator LobotomyAnim()
-    {   shootAllowed = false;
+    {
+        shootAllowed = false;
         anim.SetTrigger("Lobotomy");
         Time.timeScale = 0.1f;
         var counter = 0.0f;
-        var duration = 0.5f;
+        var duration = 0.3f;
+        var temp = Instantiate(lobotomyText);
+        temp.transform.position = transform.position + new Vector3(0, 2, 0);
         while (counter< duration)
         {
             counter += Time.deltaTime;
             cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, 3.5f, counter / duration);
             yield return null;
         }
-        
         cam.orthographicSize = 3.5f;
         counter = 0.0f;
-        duration = 0.5f;
+        duration = 0.3f;
         while (counter< duration)
         {
             counter += Time.deltaTime;
             cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, 7f, counter / duration);
             yield return null;
         }
+        Destroy(temp);
         Time.timeScale = 1f;
         shootAllowed = true;
     }
@@ -496,7 +499,7 @@ public class CharController : MonoBehaviour
 
     public void SwitchElement(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && shootAllowed)
         {
             var side = context.ReadValue<Single>();
             if (side > 0)

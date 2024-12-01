@@ -57,7 +57,7 @@ public class UIHandler : MonoBehaviour
     public void lockElement(int index)
     {
         tempColor = elementsUI[index].color;
-        elementsUI[index].GetComponent<Image>().color = new Color(0.3f,0.3f,0.3f,0.3f);
+        elementsUI[index].GetComponent<Image>().color = new Color(0.3f,0.3f,0.3f,1f);
         Debug.Log("Locking element " + elementsUI[index].GetComponent<Image>().color);
     }
 

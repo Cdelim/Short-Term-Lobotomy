@@ -51,10 +51,8 @@ public class projectile : MonoBehaviour
 
     public IEnumerator CoolDown()
     {
-        Debug.Log("Start cooldown");
         hasCooldown = true;
         yield return new WaitForSeconds(cooldown);
         hasCooldown = false;
-        Debug.Log("End cooldown");
     }
 }
