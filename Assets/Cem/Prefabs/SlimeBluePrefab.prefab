@@ -299,7 +299,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 7522970553341015582, guid: aa52632556c88443fa66a7ab36f64511, type: 3}
   spriteRenderer: {fileID: 687595320527172537}
   sfxSource: {fileID: 4047760264753543895}
-  dieAudioClip: {fileID: 0}
+  dieAudioClip: {fileID: 8300000, guid: 8c015ad57269b4139a93bb21432ba11b, type: 3}
   getDamagedAudioClip: {fileID: 8300000, guid: 0ba2a5f3c35b64e9cbc0b84f4aeba14a, type: 3}
 --- !u!50 &4490259327620501083
 Rigidbody2D:
