@@ -528,6 +528,10 @@ public class CharController : MonoBehaviour
     
     public void GetDamage(float damage, ElementalType type)
     {
+        if (!vulnerable)
+        {
+            return;
+        }
         float damagePoint = damage * ElementalCalc.ElementalWeakness(type, currentType);
         health -= damagePoint;
         anim.SetTrigger("Damage");
