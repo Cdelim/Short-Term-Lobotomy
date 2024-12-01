@@ -162,13 +162,12 @@ MonoBehaviour:
     acceleration: 1
     range: 4
     health: 100
-    attackDamage: 0
-    attackDeltaTime: 0
-    dieTimeSec: 0
+    attackDamage: 15
+    attackDeltaTime: 1
+    dieTimeSec: 0.5
     elementalType: 3
   animationController: {fileID: 1644127193445051735}
   navMeshAgent: {fileID: 5929987555749022559}
-  diePrefab: {fileID: 0}
   projectilePrefab: {fileID: 3906389902458098287, guid: 2325087336d3e4799b3b49031b650f1d, type: 3}
   spriteRenderer: {fileID: 2536540813088258942}
 --- !u!50 &7081781129129639507
@@ -320,7 +319,7 @@ TrailRenderer:
   m_SortingLayerID: 1330568789
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Time: 5
+  m_Time: 0.4
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -352,7 +351,7 @@ TrailRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 0.92156863, g: 0.87058824, b: 0.6392157, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 0.24313726}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -383,7 +382,7 @@ TrailRenderer:
     numCapVertices: 0
     alignment: 1
     textureMode: 2
-    textureScale: {x: 1, y: 1}
+    textureScale: {x: 3, y: 3}
     shadowBias: 0.5
     generateLightingData: 0
   m_MinVertexDistance: 0.1

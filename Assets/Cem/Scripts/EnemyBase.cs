@@ -131,7 +131,7 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
 
     protected virtual void Awake()
     {
-        stopDistance = Random.Range(0, enemyAttributes.range);
+        stopDistance = Random.Range(enemyAttributes.range - 1, enemyAttributes.range);
         navMeshAgent.updateRotation = false;
         navMeshAgent.updateUpAxis = false;
         navMeshAgent.angularSpeed = 0;
@@ -189,10 +189,7 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
 
                 break;
             case EnemyState.Death:
-                if (timerSec >= enemyAttributes.dieTimeSec)
-                {
-                    Die();
-                }
+                
 
                 if (timerSec <= 0)
                 {
@@ -238,6 +235,7 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
         animationController.GetAttacked();
         if (IsDeath())
         {
+            SetEnemyState(EnemyState.Death);
             Die();
         }
     }
@@ -254,8 +252,8 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
 
     protected bool CheckCharIsInRange()
     {
-        if (Vector2.Distance(targetChar.transform.position, transform.position) <=
-            stopDistance) //todo maybe you can calculate with sqrmagnitude
+        float distance = Vector2.Distance(targetChar.transform.position, transform.position);
+        if (distance <= stopDistance) //todo maybe you can calculate with sqrmagnitude
         {
             return true;
         }

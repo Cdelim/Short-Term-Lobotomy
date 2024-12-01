@@ -157,17 +157,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAttributes:
     currentSpeed: 0
-    speedMax: 3
-    acceleration: 1
-    range: 4
+    speedMax: 5
+    acceleration: 3
+    range: 2
     health: 100
-    attackDamage: 0
-    attackDeltaTime: 0
-    dieTimeSec: 0
+    attackDamage: 20
+    attackDeltaTime: 3
+    dieTimeSec: 1
     elementalType: 1
   animationController: {fileID: 5343597327631746036}
   navMeshAgent: {fileID: 9133915984946888854}
-  diePrefab: {fileID: 0}
   projectilePrefab: {fileID: 2504214343621411470, guid: f4a53b30eea6e4f0f83ed79ddc7edcf5, type: 3}
   spriteRenderer: {fileID: 1182509650363118424}
 --- !u!50 &8677985945948623403

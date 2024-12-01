@@ -43,7 +43,7 @@ public class projectile : MonoBehaviour
         }
         else if (other.gameObject.tag == "Player")
         {
-            //other.gameObject.GetComponent<CharacterController>().GetDamage(damage, type);
+            other.gameObject.GetComponent<CharController>().GetDamage(damage, type);
             if (!continues)
                 Destroy(gameObject);
         }

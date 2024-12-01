@@ -161,13 +161,12 @@ MonoBehaviour:
     acceleration: 1
     range: 4
     health: 100
-    attackDamage: 0
-    attackDeltaTime: 0
-    dieTimeSec: 0
+    attackDamage: 15
+    attackDeltaTime: 1
+    dieTimeSec: 0.5
     elementalType: 0
   animationController: {fileID: 5224022903860696619}
   navMeshAgent: {fileID: 7930625229636120059}
-  diePrefab: {fileID: 0}
   projectilePrefab: {fileID: 7522970553341015582, guid: aa52632556c88443fa66a7ab36f64511, type: 3}
   spriteRenderer: {fileID: 687595320527172537}
 --- !u!50 &4490259327620501083
