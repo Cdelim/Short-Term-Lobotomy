@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4906735828173179179}
   - component: {fileID: 4892623867454923928}
   - component: {fileID: 3671482152062129780}
+  - component: {fileID: -8831206577241200590}
   m_Layer: 0
   m_Name: BlueAttackPrefab
   m_TagString: Untagged
@@ -130,3 +131,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.12, y: 2.56}
   m_EdgeRadius: 0
+--- !u!114 &-8831206577241200590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7522970553341015582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a959c84aff4953c4f84129534669a677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 15
+  damage: 1
+  lifeTime: 5
+  hasCooldown: 0
+  cooldown: 0.5
+  continues: 1

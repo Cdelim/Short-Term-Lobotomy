@@ -168,7 +168,7 @@ MonoBehaviour:
   animationController: {fileID: 5343597327631746036}
   navMeshAgent: {fileID: 9133915984946888854}
   diePrefab: {fileID: 0}
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 2504214343621411470, guid: f4a53b30eea6e4f0f83ed79ddc7edcf5, type: 3}
   spriteRenderer: {fileID: 1182509650363118424}
 --- !u!50 &8677985945948623403
 Rigidbody2D:

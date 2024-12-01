@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3564506387569791048}
   - component: {fileID: 2450393740240918873}
   - component: {fileID: 3657045916543311586}
+  - component: {fileID: -8892847443386440723}
   m_Layer: 0
   m_Name: OrangeHit
   m_TagString: Untagged
@@ -4909,3 +4910,21 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-8892847443386440723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240377610751187708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a959c84aff4953c4f84129534669a677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 15
+  damage: 1
+  lifeTime: 5
+  hasCooldown: 0
+  cooldown: 0.5
+  continues: 1
