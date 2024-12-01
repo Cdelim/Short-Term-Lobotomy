@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 706024770345181420}
   m_Layer: 0
   m_Name: player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -246,6 +246,7 @@ MonoBehaviour:
   vulnerable: 1
   damageMultiplier: 1
   shootAllowed: 1
+  currentType: 0
   fireMul: 1
   waterMul: 1
   earthMul: 1
