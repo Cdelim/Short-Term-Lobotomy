@@ -58,7 +58,7 @@ namespace Utility
             if (currentWaveIndex >= waves.Count - 1)
             {
 
-                //todo Game End
+                //todo Game End. Successfull
                 Debug.Log("All waves completed!");
                 return;
             }
