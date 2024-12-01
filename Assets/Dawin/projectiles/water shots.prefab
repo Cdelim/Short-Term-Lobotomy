@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3381601760708490537}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.13294138, w: 0.9911239}
-  m_LocalPosition: {x: 0.5481949, y: 0.23464233, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.056865394, w: 0.99838185}
+  m_LocalPosition: {x: 18.376307, y: 26.191635, z: 0}
   m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.1745283, g: 0.8468863, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -98,11 +98,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a959c84aff4953c4f84129534669a677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
-  damage: 1683.7788
-  lifeTime: 5
+  speed: 20
+  damage: 3
+  lifeTime: 3
   hasCooldown: 0
   cooldown: 0.2
+  continues: 1
 --- !u!58 &5189000739306869746
 CircleCollider2D:
   m_ObjectHideFlags: 0

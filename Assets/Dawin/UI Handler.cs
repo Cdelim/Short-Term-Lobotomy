@@ -11,23 +11,23 @@ public class UIHandler : MonoBehaviour
     public static UIHandler instance;
 
     public RectTransform[] elementsUITransform;
-    public RawImage[] elementsUI;
+    public Image[] elementsUI;
     
     private Color tempColor;
 
     #region Positional
 
     public RectTransform topPos = new RectTransform();
-    public RawImage topImage;
+    public Image topImage;
 
     public RectTransform bottomPos;
-    public RawImage bottomImage;
+    public Image bottomImage;
 
     public RectTransform leftPos;
-    public RawImage leftImage;
+    public Image leftImage;
 
     public RectTransform rightPos;
-    public RawImage rightImage;
+    public Image rightImage;
 
     #endregion
 
@@ -54,18 +54,16 @@ public class UIHandler : MonoBehaviour
         leftImage = elementsUI[3];
     }
 
-    public void lockElement(int index, float duration)
+    public void lockElement(int index)
     {
         tempColor = elementsUI[index].color;
-        elementsUI[index].GetComponent<RawImage>().color = new Color(0.3f,0.3f,0.3f,1);
-        StartCoroutine(UnlockElement(index, duration));
-        
+        elementsUI[index].GetComponent<Image>().color = new Color(0.3f,0.3f,0.3f,0.3f);
+        Debug.Log("Locking element " + elementsUI[index].GetComponent<Image>().color);
     }
 
-    private IEnumerator UnlockElement(int index, float dur)
+    public void UnlockElement(int index)
     {
-        yield return new WaitForSeconds(dur);
-        elementsUI[index].GetComponent<RawImage>().color = tempColor;
+        elementsUI[index].GetComponent<Image>().color = tempColor;
     }
     
     public void RotateElement(int dir)
@@ -102,13 +100,13 @@ public class UIHandler : MonoBehaviour
                 counter += Time.deltaTime;
                 //opacity
                 var lerpTimer = counter / duration;
-                elementsUI[0].GetComponent<RawImage>().color = Color.Lerp(elementsUI[0].GetComponent<RawImage>().color,
+                elementsUI[0].GetComponent<Image>().color = Color.Lerp(elementsUI[0].GetComponent<Image>().color,
                     col1, lerpTimer);
-                elementsUI[1].GetComponent<RawImage>().color = Color.Lerp(elementsUI[1].GetComponent<RawImage>().color,
+                elementsUI[1].GetComponent<Image>().color = Color.Lerp(elementsUI[1].GetComponent<Image>().color,
                     col2, lerpTimer);
-                elementsUI[2].GetComponent<RawImage>().color = Color.Lerp(elementsUI[2].GetComponent<RawImage>().color,
+                elementsUI[2].GetComponent<Image>().color = Color.Lerp(elementsUI[2].GetComponent<Image>().color,
                     col3, lerpTimer);
-                elementsUI[3].GetComponent<RawImage>().color = Color.Lerp(elementsUI[3].GetComponent<RawImage>().color,
+                elementsUI[3].GetComponent<Image>().color = Color.Lerp(elementsUI[3].GetComponent<Image>().color,
                     col4, lerpTimer);
 
                 //position
@@ -149,13 +147,13 @@ public class UIHandler : MonoBehaviour
                 //opacity
                 var lerpTimer = counter / duration;
 
-                elementsUI[0].GetComponent<RawImage>().color = Color.Lerp(elementsUI[0].GetComponent<RawImage>().color,
+                elementsUI[0].GetComponent<Image>().color = Color.Lerp(elementsUI[0].GetComponent<Image>().color,
                     col1, lerpTimer);
-                elementsUI[1].GetComponent<RawImage>().color = Color.Lerp(elementsUI[1].GetComponent<RawImage>().color,
+                elementsUI[1].GetComponent<Image>().color = Color.Lerp(elementsUI[1].GetComponent<Image>().color,
                     col2, lerpTimer);
-                elementsUI[2].GetComponent<RawImage>().color = Color.Lerp(elementsUI[2].GetComponent<RawImage>().color,
+                elementsUI[2].GetComponent<Image>().color = Color.Lerp(elementsUI[2].GetComponent<Image>().color,
                     col3, lerpTimer);
-                elementsUI[3].GetComponent<RawImage>().color = Color.Lerp(elementsUI[3].GetComponent<RawImage>().color,
+                elementsUI[3].GetComponent<Image>().color = Color.Lerp(elementsUI[3].GetComponent<Image>().color,
                     col4, lerpTimer);
 
                 //position
