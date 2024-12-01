@@ -20,6 +20,7 @@ public class EnemyAttributes
     public float acceleration;
     public float range;
     public float health;
+    public float attackDamage;
     public float attackDeltaTime;
     public ElementalType elementalType;
 
@@ -56,12 +57,13 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
     protected float timerSec;
     protected float stopDistance;
 
+    protected CharController targetChar;
+
     protected virtual void Awake()
     {
         stopDistance = Random.Range(0, enemyAttributes.range);
         navMeshAgent.updateRotation = false;
         navMeshAgent.updateUpAxis = false;
-        
     }
 
 
@@ -95,8 +97,8 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
             case EnemyState.Moving2Char:
                 //enemyAttributes.currentSpeed += Time.deltaTime * enemyAttributes.acceleration;
                 //enemyAttributes.currentSpeed = Mathf.Clamp(enemyAttributes.currentSpeed, 0, enemyAttributes.speedMax);
-                //transform.position = Vector3.MoveTowards(transform.position, TargetTest.Instance.transform.position, enemyAttributes.currentSpeed * Time.deltaTime);
-                navMeshAgent.SetDestination(TargetTest.Instance.transform.position);
+                //transform.position = Vector3.MoveTowards(transform.position, targetChar.transform.position, enemyAttributes.currentSpeed * Time.deltaTime);
+                navMeshAgent.SetDestination(targetChar.transform.position);
                 if (CheckCharIsInRange())
                 {
                     navMeshAgent.isStopped = true;
@@ -132,7 +134,10 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
         DestroyPoolObj();
         Utility.WaveManager.Instance.EnemyDefeated(this.gameObject);
     }
-    protected abstract void GetDamage(ElementalType type);
+    protected virtual void GetDamage(ElementalType type)
+    {
+        animationController.GetAttacked();
+    }
 
     protected bool IsDeath()
     {
@@ -144,7 +149,7 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
     }
     protected bool CheckCharIsInRange()
     {
-        if(Vector2.Distance(TargetTest.Instance.transform.position, transform.position)<= stopDistance)//todo maybe you can calculate with sqrmagnitude
+        if(Vector2.Distance(targetChar.transform.position, transform.position)<= stopDistance)//todo maybe you can calculate with sqrmagnitude
         {
             return true;
         }
@@ -175,6 +180,8 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
         navMeshAgent.stoppingDistance = stopDistance;
         navMeshAgent.enabled = true;
         animationController.PlayIdle();
+
+        targetChar = Utility.WaveManager.Instance.Character;
     }
 
     public virtual void DestroyPoolObj()
