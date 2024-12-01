@@ -116,18 +116,12 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
     public EnemyAttributes enemyAttributes;
     public bool isDeath { get; private set; }
 
-<<<<<<< Updated upstream
+
     [SerializeField]protected EnemyAnimationController animationController;
     [SerializeField]protected NavMeshAgent navMeshAgent;
     [SerializeField]protected GameObject diePrefab;
     [SerializeField]protected GameObject projectilePrefab;
     [SerializeField]protected SpriteRenderer spriteRenderer;
-=======
-    [SerializeField] protected EnemyAnimationController animationController;
-    [SerializeField] protected NavMeshAgent navMeshAgent;
-    [SerializeField] protected GameObject diePrefab;
-    [SerializeField] protected GameObject projectilePrefab;
->>>>>>> Stashed changes
 
     protected EnemyState enemyState = EnemyState.Idle;
     protected float timerSec;
@@ -157,7 +151,6 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
 
     protected void FiniteStateMachine()
     {
-<<<<<<< Updated upstream
         Vector2 dir = (targetChar.transform.position - transform.position).normalized;
         if (Vector2.Dot(dir, Vector2.right) < 0)
         {
@@ -168,8 +161,6 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
             spriteRenderer.flipX = false;
         }
 
-=======
->>>>>>> Stashed changes
         if (IsDeath())
         {
             SetEnemyState(EnemyState.Death);
