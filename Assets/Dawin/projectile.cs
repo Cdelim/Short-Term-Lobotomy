@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class projectile : MonoBehaviour
 {
-    ElementalType type;
+    public ElementalType type;
     public float speed = 15.0f;
     public float damage = 1.0f;
     public float lifeTime = 5.0f;
@@ -34,11 +34,17 @@ public class projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        
+
         if (other.gameObject.tag == "Enemy")
         {
             other.gameObject.GetComponent<EnemyBase>().GetDamage(damage, type);
-            if(!continues) 
+            if (!continues)
+                Destroy(gameObject);
+        }
+        else if (other.gameObject.tag == "Player")
+        {
+            //other.gameObject.GetComponent<CharacterController>().GetDamage(damage, type);
+            if (!continues)
                 Destroy(gameObject);
         }
     }

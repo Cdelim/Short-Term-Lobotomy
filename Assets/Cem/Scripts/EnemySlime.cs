@@ -1,4 +1,5 @@
-﻿public class EnemySlime : EnemyBase
+﻿using UnityEngine;
+public class EnemySlime : EnemyBase
 {
 
 
@@ -8,7 +9,10 @@
     }
     protected override void Attack()
     {
-
+        var attackPrefab = Utility.ObjectPool.Instance.GetFromPool(projectilePrefab);
+        Vector3 dir = (Utility.WaveManager.Instance.Character.transform.position - transform.position).normalized;
+        attackPrefab.transform.position = transform.position + (dir *.25f);
+        attackPrefab.transform.right = dir;
     }
 
     protected override void Die()
