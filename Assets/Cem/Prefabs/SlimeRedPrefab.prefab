@@ -169,6 +169,7 @@ MonoBehaviour:
   navMeshAgent: {fileID: 9133915984946888854}
   diePrefab: {fileID: 0}
   projectilePrefab: {fileID: 0}
+  spriteRenderer: {fileID: 1182509650363118424}
 --- !u!50 &8677985945948623403
 Rigidbody2D:
   serializedVersion: 4

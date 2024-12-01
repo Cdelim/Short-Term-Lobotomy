@@ -14848,7 +14848,7 @@ GameObject:
   - component: {fileID: 3187647067869052983}
   - component: {fileID: 8484919667243512843}
   m_Layer: 0
-  m_Name: CFXR2 _CURSED_
+  m_Name: VFXLobotomy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
