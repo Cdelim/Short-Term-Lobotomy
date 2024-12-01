@@ -18,6 +18,7 @@ public class CharController : MonoBehaviour
     public bool vulnerable = true;
     public float damageMultiplier = 1.0f;
     public bool shootAllowed = true;
+    public ElementalType currentType;
 
     public float fireMul = 1.0f;
     public float waterMul = 1.0f;
@@ -507,6 +508,21 @@ public class CharController : MonoBehaviour
                 }
             }
             gun.GetComponent<SpriteRenderer>().sprite = GetSprite(projectileIndex);
+            switch (projectileIndex)
+            {
+                case 0:
+                    currentType = ElementalType.Fire;
+                    break;
+                case 1:
+                    currentType = ElementalType.Electric;
+                    break;
+                case 2:
+                    currentType = ElementalType.Earth;
+                    break;
+                case 3:
+                    currentType = ElementalType.Water;
+                    break;
+            }
         }
     }
 
