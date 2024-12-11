@@ -3,9 +3,9 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
+using Utility;
 using Random = UnityEngine.Random;
 
 public class CharController : MonoBehaviour
@@ -30,6 +30,7 @@ public class CharController : MonoBehaviour
 
     #region components
 
+    public Slider healthBar;
     public Animator anim;
     public GameObject lobotomyText;
     public SpriteRenderer sprite;
@@ -89,10 +90,13 @@ public class CharController : MonoBehaviour
         {
             shot.hasCooldown = false;
         }
+
+        healthBar.value = 1.0f;
     }
 
     void Start()
     {
+        GameManager.Instance.GameState = GameState.Playing;
         StartCoroutine(LobotomyTimer());
     }
 
@@ -100,6 +104,10 @@ public class CharController : MonoBehaviour
     {
         while (!_escaped)
         {
+            if (GameManager.Instance.GameState == GameState.GameEnd)
+            {
+                Win();
+            }
             while (lobotomyTime)
             {
                 yield return null;
@@ -110,6 +118,7 @@ public class CharController : MonoBehaviour
             while (counter < 15f)
             {
                 counter += Time.deltaTime;
+                yield return null;
             }
             if (!lobotomyTime)
             {
@@ -247,46 +256,13 @@ public class CharController : MonoBehaviour
 
         bool clicked = false;
         bool rightAnwser = false;
-        for(int j = 0; j<3;j++)
-        {
-            symbolMember[j].GetComponent<Image>().sprite = images[j].image.sprite;
-            if (images[j].isCorrect)
-            {
-                symbolMember[j].GetComponent<Button>().onClick.AddListener(() => rightAnwser = true);
-                symbolMember[j].GetComponent<Button>().onClick.AddListener(() => clicked = true);
-            }
-            else
-            {
-                symbolMember[j].GetComponent<Button>().onClick.AddListener(() => rightAnwser = false);
-                symbolMember[j].GetComponent<Button>().onClick.AddListener(() => clicked = true);
-            }
-            
-        }
-        shootAllowed = false;
-        rememberScreen.SetActive(true);
-        var counter = 5f;
-        while (counter > 0f&& !clicked)
-        {
-            counter -= Time.deltaTime;
-            slider.value = counter/5f;
-            yield return null;
-        }
-        rememberScreen.SetActive(false);
-        Time.timeScale = 1f;
-        if (!rightAnwser)
-        {
-            yield return new WaitForSeconds(2f);
-            
-        }
-        else
-        {
-            StartCoroutine(BonusDamage(index));
-        }
+        yield return null;
         lobotomyTime = false;
         lockedElement = -1;
         shootAllowed = true;
         chancesOfLobotomy[i] = 0.0f;
         UIHandler.instance.UnlockElement(index);
+        Time.timeScale = 1.0f;
         StartCoroutine(LobotomyTimer());
     }
 
@@ -359,7 +335,6 @@ public class CharController : MonoBehaviour
             {
                 sprite.flipX = false;
             }
-            
             _dodgeInput = _moveInput;
         }
         if (context.canceled)
@@ -391,8 +366,7 @@ public class CharController : MonoBehaviour
         {
             counter += Time.deltaTime;
             Vector3 vel = Vector3.zero;
-            transform.position = Vector3.SmoothDamp(transform.position,
-                transform.position + new Vector3(_dodgeInput.x, _dodgeInput.y, 0) * dodgeVelocity, ref vel, duration);
+            transform.Translate(_dodgeInput * dodgeVelocity * Time.deltaTime, Space.Self);
             yield return null;
         }
 
@@ -477,6 +451,7 @@ public class CharController : MonoBehaviour
             float angle = CalcDir();
             shots.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
             shots.transform.position = gun.transform.position;
+            shots.damage *= damageMultiplier*waterMul;
             yield return new WaitForSeconds(0.02f);
         }
     }
@@ -567,10 +542,77 @@ public class CharController : MonoBehaviour
             }
             possibleLobotomy = false;
         }
+        healthBar.value = health / 100.0f;
         if (health <= 0)
         {
             _escaped = true;
-            //UIHandler.instance.GameOver();
+            GameOver();
         }
     }
+
+    public GameObject menu;
+    public GameObject darken;
+    public void Pause(InputAction.CallbackContext context)
+    {
+        Debug.Log("pausing!");
+        if (context.started)
+        {
+            PauseUnpause();
+        }
+    }
+
+    public void PauseUnpause()
+    {
+        if (GameManager.Instance.GameState == GameState.Paused)
+        {
+            GameManager.Instance.GameState = GameState.Playing;
+            Time.timeScale = 1;
+            menu.SetActive(false);
+            darken.SetActive(false);
+        }
+        else if(GameManager.Instance.GameState == GameState.Playing)
+        {
+            GameManager.Instance.GameState = GameState.Paused;
+            Time.timeScale = 0;
+            menu.SetActive(true);
+            darken.SetActive(true);
+        }
+    }
+
+    public void GameOver()
+    {
+        source.PlayOneShot(lose);
+        anim.SetTrigger("Death");
+        darken.SetActive(true);
+        text.text = "You Lose!";
+        text.color = new Color(1, 1, 1, 1);
+        StartCoroutine(GoToStart());
+        
+    }
+
+    public AudioSource source;
+    public AudioClip lose;
+    public AudioClip fight;
+    public AudioClip win;
+
+    public void Win()
+    {
+        source.PlayOneShot(win);
+        text.text = "You Win!";
+        text.color = new Color(1, 1, 1, 1);
+        
+        StartCoroutine(GoToStart());
+    }
+
+    public IEnumerator GoToStart()
+    {
+        yield return new WaitForSeconds(5f);
+        SceneController.Instance.LoadScene(SceneNameEnum.StartScene);
+    }
+    public void QuitGame()
+    {
+        Debug.Log("quitting!");
+        Application.Quit();
+    }
+    
 }

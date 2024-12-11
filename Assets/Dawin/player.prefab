@@ -309,6 +309,11 @@ MonoBehaviour:
   increaseRate: 0.01
   lockedElement: -1
   lobotomyDuration: 15
+  menu: {fileID: 0}
+  darken: {fileID: 0}
+  source: {fileID: 0}
+  lose: {fileID: 0}
+  fight: {fileID: 0}
 --- !u!114 &8666074772119190431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,6 +403,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5a76659f-b2ca-48e2-97e2-de9965cdbbe3
     m_ActionName: Keyboard/Switch Element[/Keyboard/q,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7635747115995318059}
+        m_TargetAssemblyTypeName: CharController, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 02285a9e-5752-4f4f-a75f-c943f68a3c37
+    m_ActionName: Keyboard/Pause[/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Keyboard
