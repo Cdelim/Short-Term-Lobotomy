@@ -12,7 +12,7 @@ public enum GameState
 public class GameManager : MonoBehaviour
 {
     // Singleton instance
-    public static GameManager Instance { get; private set; }
+    public static GameManager Instance { get; set; }
 
     // Game state variables
     public GameState GameState { get; set; }
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
         GameState = GameState.Started;
     }
 
-
+    
 
 }
 

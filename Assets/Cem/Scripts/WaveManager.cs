@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace Utility
 {
@@ -25,7 +28,8 @@ namespace Utility
         public List<Wave> waves;
         private int currentWaveIndex = -1; // The current wave number
         //public int totalWaves = 5; // Total waves to progress through
-
+        public TextMeshProUGUI text;
+        
         [Header("Spawn Settings")]
         public Transform[] spawnPoints; // Empty GameObjects placed outside the camera's view
         public CharController Character; // Empty GameObjects placed outside the camera's view
@@ -49,24 +53,44 @@ namespace Utility
         private void Start()
         {
        
-            StartNextWave();  // Begin the first wave
+            StartCoroutine(StartNextWave());  // Begin the first wave
         }
 
 
-        public void StartNextWave()
+        public IEnumerator StartNextWave()
         {
             if (currentWaveIndex >= waves.Count - 1)
             {
-
-                //todo Game End. Successfull
+                GameManager.Instance.GameState = GameState.GameEnd;
                 Debug.Log("All waves completed!");
-                return;
+                yield break;
             }
-
+            
             currentWaveIndex++;
-            Debug.Log("Next wave!");
+            
+            text.text = "Wave " + (currentWaveIndex + 1) + " / " + waves.Count;
+            var counter = 0.0f;
+            while(counter < 1.0f)
+            {
+                counter += Time.deltaTime;
+                text.color = Color.Lerp(Color.clear, Color.white, counter);
+                yield return null;
+            }
+            
+            yield return new WaitForSeconds(1.0f);
+            
+            counter = 0.0f;
+            while(counter < 1.0f)
+            {
+                counter += Time.deltaTime;
+                text.color = Color.Lerp(Color.white, Color.clear, counter);
+                yield return null;
+            }
+            
+            text.color = Color.clear;
             currentWave = waves[currentWaveIndex];
             StartCoroutine(SpawnEnemies());
+            
         }
 
         private IEnumerator SpawnEnemies()
@@ -91,13 +115,14 @@ namespace Utility
 
             if (enemiesAlive <= 0)
             {
-                Debug.Log("Wave completed!");
-                StartNextWave();
+                StartCoroutine(StartNextWave());
             }
         }
-
+        
+        
     
     }
+    
 
    
 

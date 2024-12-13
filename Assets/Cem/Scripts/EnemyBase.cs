@@ -268,7 +268,6 @@ public abstract class EnemyBase : MonoBehaviour, IPoolObject
     protected bool CheckCharIsInRange()
     {
         float distance = Vector2.Distance(targetChar.transform.position, transform.position);
-        Debug.Log("Distance to Char: " + distance);
         if (distance <= stopDistance) //todo maybe you can calculate with sqrmagnitude
         {
             return true;

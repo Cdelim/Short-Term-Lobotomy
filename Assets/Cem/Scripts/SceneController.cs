@@ -33,6 +33,10 @@ namespace Utility
         {
             SceneManager.LoadScene((int)sceneNameEnum);
         }
+        public void ExitGame()
+        {
+            Application.Quit();
+        }
     }
 
 }
